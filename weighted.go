@@ -13,12 +13,18 @@ current_weight's: (a, a, b, a, c, a, a)
 */
 package weighted
 
-// Weighted is a wrapped server with  weight
+// Weighted is a wrapped server with weight
 type Weighted struct {
 	Server          interface{}
 	Weight          int
 	CurrentWeight   int
 	EffectiveWeight int
+}
+
+// W is struct that contains weighted servers and provides methods to select a weighted server.
+type W struct {
+	servers []*Weighted
+	n       int
 }
 
 func (w *Weighted) fail() {
@@ -28,20 +34,17 @@ func (w *Weighted) fail() {
 	}
 }
 
-// W is struct that contains weighted servers and provides methods to select a weighted server.
-type W struct {
-	servers []*Weighted
-}
-
 // Add a weighted server.
 func (w *W) Add(server interface{}, weight int) {
 	weighted := &Weighted{Server: server, Weight: weight, EffectiveWeight: weight}
 	w.servers = append(w.servers, weighted)
+	w.n++
 }
 
 // RemoveAll removes all weighted servers.
 func (w *W) RemoveAll() {
 	w.servers = w.servers[:0]
+	w.n = 0
 }
 
 //Reset resets all current weights.
@@ -54,11 +57,25 @@ func (w *W) Reset() {
 
 // Next returns next selected server.
 func (w *W) Next() interface{} {
+	if w.n == 0 {
+		return nil
+	}
+	if w.n == 1 {
+		return w.servers[0].Server
+	}
+
 	return nextWeighted(w.servers).Server
 }
 
 // NextWeighted returns next selected weighted object.
 func (w *W) NextWeighted() *Weighted {
+	if w.n == 0 {
+		return nil
+	}
+	if w.n == 1 {
+		return w.servers[0]
+	}
+
 	return nextWeighted(w.servers)
 }
 

@@ -28,3 +28,23 @@ func ExampleW_() {
 	}
 }
 ```
+
+And this lib has provides another weighted round robin algorithm. This algorithm is used in [LVS](http://kb.linuxvirtualserver.org/wiki/Weighted_Round-Robin_Scheduling).
+It has better performance but it is not so more smooth than the first algorithm, so you can select one algorithm according to your case. It is used like the first:
+
+```go
+package main
+
+import "fmt"
+
+func ExampleW_() {
+	w := &W{}
+	w.Add("a", 5)
+	w.Add("b", 2)
+	w.Add("c", 3)
+
+	for i := 0; i < 10; i++ {
+		fmt.Printf("%s ", w.Next())
+	}
+}
+```
