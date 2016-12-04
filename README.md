@@ -1,5 +1,9 @@
-Package weighted implements the smooth weighted round-robin balancing algorithm. This algorithm is implemented in Nginx:
+[![License](https://img.shields.io/:license-apache-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![GoDoc](https://godoc.org/github.com/smallnest/weighted?status.png)](http://godoc.org/github.com/smallnest/weighted)  ![travis](https://travis-ci.org/smallnest/weighted.svg?branch=master) [![Coverage](http://gocover.io/_badge/github.com/smallnest/weighted)](http://gocover.io/github.com/smallnest/weighted) [![Go Report Card](https://goreportcard.com/badge/github.com/smallnest/weighted)](https://goreportcard.com/report/github.com/smallnest/weighted)
+
+Package **weighted** implements the smooth weighted round-robin balancing algorithm. This algorithm is implemented in Nginx:
 https://github.com/phusion/nginx/commit/27e94984486058d73157038f7950a0a36ecc6e35.
+
+And it also implements the weighted rund robin algorithm used in LVS.
 
 Algorithm is as follows: on each peer selection we increase current_weight
 of each eligible peer by its weight, select peer with greatest current_weight
