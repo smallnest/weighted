@@ -2,8 +2,8 @@ package weighted
 
 import "testing"
 
-func TestW_Next(t *testing.T) {
-	w := &W{}
+func TestW1_Next(t *testing.T) {
+	w := &W1{}
 	w.Add("server1", 5)
 	w.Add("server2", 2)
 	w.Add("server3", 3)
