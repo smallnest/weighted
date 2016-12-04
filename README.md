@@ -3,7 +3,6 @@
 Package **weighted** implements the smooth weighted round-robin balancing algorithm. This algorithm is implemented in Nginx:
 https://github.com/phusion/nginx/commit/27e94984486058d73157038f7950a0a36ecc6e35.
 
-And it also implements the weighted rund robin algorithm used in LVS.
 
 Algorithm is as follows: on each peer selection we increase current_weight
 of each eligible peer by its weight, select peer with greatest current_weight
@@ -13,16 +12,15 @@ among peers.
 In case of { 5, 1, 1 } weights this gives the following sequence of
 current_weight's: (a, a, b, a, c, a, a)
 
-
-This is  an example to use it:
+This is an example to use it:
 
 ```go
 package main
 
 import "fmt"
 
-func ExampleW_() {
-	w := &W{}
+func ExampleW1_Next() {
+	w := &W1{}
 	w.Add("a", 5)
 	w.Add("b", 2)
 	w.Add("c", 3)
@@ -41,8 +39,8 @@ package main
 
 import "fmt"
 
-func ExampleW_() {
-	w := &W{}
+func ExampleW2_Next() {
+	w := &W2{}
 	w.Add("a", 5)
 	w.Add("b", 2)
 	w.Add("c", 3)
