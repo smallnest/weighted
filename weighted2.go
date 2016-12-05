@@ -65,7 +65,7 @@ func (w *W2) Next() interface{} {
 		return w.servers[0].Server
 	}
 
-	for true {
+	for {
 		w.i = (w.i + 1) % w.n
 		if w.i == 0 {
 			w.cw = w.cw - w.gcd
@@ -81,8 +81,6 @@ func (w *W2) Next() interface{} {
 			return w.servers[w.i].Server
 		}
 	}
-
-	return true
 }
 
 func gcd(x, y int) int {
