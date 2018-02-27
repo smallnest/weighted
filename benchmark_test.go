@@ -7,12 +7,12 @@ import (
 	"time"
 )
 
-func BenchmarkW1_Next(b *testing.B) {
+func BenchmarkSW_Next(b *testing.B) {
 	b.ReportAllocs()
 	rand.Seed(time.Now().UnixNano())
-	w := &W1{}
-	for i := 0; i < 10; i++ {
-		w.Add("server"+strconv.Itoa(i), rand.Intn(100))
+	w := &SW{}
+	for i := 0; i < 50; i++ {
+		w.Add("item-"+strconv.Itoa(i), rand.Intn(100)+100)
 	}
 
 	b.StartTimer()
@@ -21,12 +21,12 @@ func BenchmarkW1_Next(b *testing.B) {
 	}
 }
 
-func BenchmarkW2_Next(b *testing.B) {
+func BenchmarkRRW_Next(b *testing.B) {
 	b.ReportAllocs()
 	rand.Seed(time.Now().UnixNano())
-	w := &W2{}
-	for i := 0; i < 10; i++ {
-		w.Add("server"+strconv.Itoa(i), rand.Intn(100))
+	w := &RRW{}
+	for i := 0; i < 50; i++ {
+		w.Add("item-"+strconv.Itoa(i), rand.Intn(100)+100)
 	}
 
 	b.StartTimer()

@@ -2,8 +2,8 @@ package weighted
 
 import "fmt"
 
-func ExampleW1_Next() {
-	w := &W1{}
+func ExampleSW_Next() {
+	w := &SW{}
 	w.Add("a", 5)
 	w.Add("b", 2)
 	w.Add("c", 3)
@@ -15,8 +15,8 @@ func ExampleW1_Next() {
 	// Output: a c b a a c a b c a
 }
 
-func ExampleW2_Next() {
-	w := &W2{}
+func ExampleRRW_Next() {
+	w := &RRW{}
 	w.Add("a", 5)
 	w.Add("b", 2)
 	w.Add("c", 3)
