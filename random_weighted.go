@@ -1,0 +1,61 @@
+package weighted
+
+import (
+	"math/rand"
+	"time"
+)
+
+// randWeighted is a wrapped weighted item that is used to implement weighted random algorithm.
+type randWeighted struct {
+	Item   interface{}
+	Weight int
+	Rand   rand.Rand
+}
+
+// RandW is a struct that contains weighted items implement weighted random algorithm.
+type RandW struct {
+	items        []*randWeighted
+	n            int
+	sumOfWeights int
+	r            *rand.Rand
+}
+
+// NewRandW creates a new RandW with a random object.
+func NewRandW() *RandW {
+	return &RandW{r: rand.New(rand.NewSource(time.Now().Unix()))}
+}
+
+// Next returns next selected item.
+func (rw *RandW) Next() (item interface{}) {
+	if rw.n == 0 {
+		return nil
+	}
+	randomWeight := rw.r.Intn(rw.sumOfWeights)
+	for _, item := range rw.items {
+		randomWeight = randomWeight - item.Weight
+		if randomWeight <= 0 {
+			return item.Item
+		}
+	}
+
+	return rw.items[len(rw.items)-1].Item
+}
+
+// Add adds a weighted item for selection.
+func (rw *RandW) Add(item interface{}, weight int) {
+	rItem := &randWeighted{Item: item, Weight: weight}
+	rw.items = append(rw.items, rItem)
+	rw.sumOfWeights += weight
+	rw.n++
+}
+
+// RemoveAll removes all weighted items.
+func (rw *RandW) RemoveAll() {
+	rw.items = make([]*randWeighted, 0)
+	rw.r = rand.New(rand.NewSource(time.Now().Unix()))
+}
+
+// Reset resets the balancing algorithm.
+func (rw *RandW) Reset() {
+	rw.r = rand.New(rand.NewSource(time.Now().Unix()))
+}

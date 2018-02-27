@@ -73,11 +73,11 @@ func (w *SW) nextWeighted() *smoothWeighted {
 		return w.items[0]
 	}
 
-	return nextsmoothWeighted(w.items)
+	return nextSmoothWeighted(w.items)
 }
 
 //https://github.com/phusion/nginx/commit/27e94984486058d73157038f7950a0a36ecc6e35
-func nextsmoothWeighted(items []*smoothWeighted) (best *smoothWeighted) {
+func nextSmoothWeighted(items []*smoothWeighted) (best *smoothWeighted) {
 	total := 0
 
 	for i := 0; i < len(items); i++ {

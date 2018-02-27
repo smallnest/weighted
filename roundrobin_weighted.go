@@ -6,7 +6,7 @@ type rrWeighted struct {
 	Weight int
 }
 
-// RRW is struct that contains weighted items implement LVS weighted round robin algorithm.
+// RRW is a struct that contains weighted items implement LVS weighted round robin algorithm.
 //
 // http://kb.linuxvirtualitem.org/wiki/Weighted_Round-Robin_Scheduling
 // http://zh.linuxvirtualitem.org/node/37
