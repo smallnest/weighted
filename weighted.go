@@ -14,6 +14,10 @@ type W interface {
 	Next() (item interface{})
 	// Add adds a weighted item for selection.
 	Add(item interface{}, weight int)
+
+	// All returns all items.
+	All() map[interface{}]int
+
 	// RemoveAll removes all weighted items.
 	RemoveAll()
 	// Reset resets the balancing algorithm.

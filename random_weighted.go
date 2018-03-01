@@ -49,6 +49,15 @@ func (rw *RandW) Add(item interface{}, weight int) {
 	rw.n++
 }
 
+// All returns all items.
+func (rw *RandW) All() map[interface{}]int {
+	m := make(map[interface{}]int)
+	for _, i := range rw.items {
+		m[i.Item] = i.Weight
+	}
+	return m
+}
+
 // RemoveAll removes all weighted items.
 func (rw *RandW) RemoveAll() {
 	rw.items = make([]*randWeighted, 0)

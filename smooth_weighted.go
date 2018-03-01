@@ -55,6 +55,15 @@ func (w *SW) Reset() {
 	}
 }
 
+// All returns all items.
+func (w *SW) All() map[interface{}]int {
+	m := make(map[interface{}]int)
+	for _, i := range w.items {
+		m[i.Item] = i.Weight
+	}
+	return m
+}
+
 // Next returns next selected server.
 func (w *SW) Next() interface{} {
 	i := w.nextWeighted()

@@ -23,7 +23,7 @@ package main
 import "fmt"
 
 func ExampleW1_Next() {
-	w := &W1{}
+	w := &SW{}
 	w.Add("a", 5)
 	w.Add("b", 2)
 	w.Add("c", 3)
