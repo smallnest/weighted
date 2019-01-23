@@ -6,6 +6,8 @@
 Package **weighted** implements the smooth weighted round-robin balancing algorithm. This algorithm is implemented in Nginx:
 https://github.com/phusion/nginx/commit/27e94984486058d73157038f7950a0a36ecc6e35.
 
+**Notice**: The weighted is NOT goroutine-safe so you MUST use the synchronization primitive to protect it (the Next method) in concurrent cases.
+
 
 Algorithm is as follows: on each peer selection we increase current_weight
 of each eligible peer by its weight, select peer with greatest current_weight
