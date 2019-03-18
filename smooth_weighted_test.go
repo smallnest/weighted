@@ -59,4 +59,15 @@ func TestSW_Next(t *testing.T) {
 	if results["server1"] != 7000 || results["server2"] != 9000 || results["server3"] != 13000 {
 		t.Error("the algorithm is wrong")
 	}
+
+	w.RemoveAll()
+	next := w.Next()
+	if next != nil {
+		t.Error("the algorithm is wrong")
+	}
+	w.Add("server1", 3)
+	next = w.Next()
+	if next == nil {
+		t.Error("the algorithm is wrong")
+	}
 }

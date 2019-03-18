@@ -31,6 +31,19 @@ func TestRRW_Next(t *testing.T) {
 		t.Error("the algorithm is wrong", results)
 	}
 
+	all := w.All()
+	countOK := 0
+	for index := range all {
+		if (index == "server1" && all[index] == 5) ||
+			(index == "server2" && all[index] == 2) ||
+			(index == "server3" && all[index] == 3) {
+			countOK++
+		}
+	}
+	if countOK != 3 {
+		t.Error("the algorithm is wrong")
+	}
+
 	w.RemoveAll()
 	w.Add("server1", 7)
 	w.Add("server2", 9)
@@ -45,6 +58,17 @@ func TestRRW_Next(t *testing.T) {
 
 	if results["server1"] != 7000 || results["server2"] != 9000 || results["server3"] != 13000 {
 		t.Error("the algorithm is wrong", results)
+	}
+
+	w.RemoveAll()
+	next := w.Next()
+	if next != nil {
+		t.Error("the algorithm is wrong")
+	}
+	w.Add("server1", 3)
+	next = w.Next()
+	if next == nil {
+		t.Error("the algorithm is wrong")
 	}
 }
 
