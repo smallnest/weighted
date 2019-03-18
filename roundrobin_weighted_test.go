@@ -47,3 +47,23 @@ func TestRRW_Next(t *testing.T) {
 		t.Error("the algorithm is wrong", results)
 	}
 }
+
+func TestGCB(t *testing.T) {
+	tests := []struct {
+		name string
+		args [2]int
+		want int
+	}{
+		{"0,0", [2]int{0, 0}, 0},
+		{"1997,615", [2]int{1997, 6150}, 1},
+		{"481,221", [2]int{481, 221}, 13},
+		{"12,18", [2]int{12, 18}, 6},
+	}
+	for _, tt := range tests {
+		n1 := tt.args[0]
+		n2 := tt.args[1]
+		if got := gcd(n1, n2); got != tt.want {
+			t.Errorf("gcb(%v, %v) = %v ; want = %v", n1, n2, got, tt.want)
+		}
+	}
+}

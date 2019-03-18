@@ -93,14 +93,8 @@ func (w *RRW) Next() interface{} {
 }
 
 func gcd(x, y int) int {
-	var t int
-	for {
-		t = (x % y)
-		if t > 0 {
-			x = y
-			y = t
-		} else {
-			return y
-		}
+	for y != 0 {
+		x, y = y, x%y
 	}
+	return x
 }
