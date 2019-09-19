@@ -9,7 +9,6 @@ import (
 type randWeighted struct {
 	Item   interface{}
 	Weight int
-	Rand   rand.Rand
 }
 
 // RandW is a struct that contains weighted items implement weighted random algorithm.
