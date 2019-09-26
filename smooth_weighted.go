@@ -66,23 +66,14 @@ func (w *SW) All() map[interface{}]int {
 
 // Next returns next selected server.
 func (w *SW) Next() interface{} {
-	i := w.nextWeighted()
-	if i == nil {
+	switch w.n {
+	case 0:
 		return nil
+	case 1:
+		return w.items[0].Item
+	default:
+		return nextSmoothWeighted(w.items).Item
 	}
-	return i.Item
-}
-
-// nextWeighted returns next selected weighted object.
-func (w *SW) nextWeighted() *smoothWeighted {
-	if w.n == 0 {
-		return nil
-	}
-	if w.n == 1 {
-		return w.items[0]
-	}
-
-	return nextSmoothWeighted(w.items)
 }
 
 //https://github.com/phusion/nginx/commit/27e94984486058d73157038f7950a0a36ecc6e35
@@ -91,10 +82,6 @@ func nextSmoothWeighted(items []*smoothWeighted) (best *smoothWeighted) {
 
 	for i := 0; i < len(items); i++ {
 		w := items[i]
-
-		if w == nil {
-			continue
-		}
 
 		w.CurrentWeight += w.EffectiveWeight
 		total += w.EffectiveWeight
