@@ -16,9 +16,11 @@ func BenchmarkSW_Next(b *testing.B) {
 	}
 
 	b.StartTimer()
-	for i := 0; i < b.N; i++ {
-		w.Next()
-	}
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			w.Next()
+		}
+	})
 }
 
 func BenchmarkRRW_Next(b *testing.B) {
@@ -30,9 +32,11 @@ func BenchmarkRRW_Next(b *testing.B) {
 	}
 
 	b.StartTimer()
-	for i := 0; i < b.N; i++ {
-		w.Next()
-	}
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			w.Next()
+		}
+	})
 }
 
 func BenchmarkRandW_Next(b *testing.B) {
@@ -44,7 +48,9 @@ func BenchmarkRandW_Next(b *testing.B) {
 	}
 
 	b.StartTimer()
-	for i := 0; i < b.N; i++ {
-		w.Next()
-	}
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			w.Next()
+		}
+	})
 }

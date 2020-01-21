@@ -1,8 +1,9 @@
 package weighted
 
 import (
-	"math/rand"
 	"time"
+
+	"golang.org/x/exp/rand"
 )
 
 // randWeighted is a wrapped weighted item that is used to implement weighted random algorithm.
@@ -21,7 +22,7 @@ type RandW struct {
 
 // NewRandW creates a new RandW with a random object.
 func NewRandW() *RandW {
-	return &RandW{r: rand.New(rand.NewSource(time.Now().Unix()))}
+	return &RandW{r: rand.New(rand.NewSource(uint64(time.Now().UnixNano())))}
 }
 
 // Next returns next selected item.
@@ -60,10 +61,10 @@ func (rw *RandW) All() map[interface{}]int {
 // RemoveAll removes all weighted items.
 func (rw *RandW) RemoveAll() {
 	rw.items = make([]*randWeighted, 0)
-	rw.r = rand.New(rand.NewSource(time.Now().Unix()))
+	rw.r = rand.New(rand.NewSource(uint64(time.Now().UnixNano())))
 }
 
 // Reset resets the balancing algorithm.
 func (rw *RandW) Reset() {
-	rw.r = rand.New(rand.NewSource(time.Now().Unix()))
+	rw.r = rand.New(rand.NewSource(uint64(time.Now().UnixNano())))
 }
