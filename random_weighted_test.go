@@ -4,9 +4,10 @@ import "testing"
 
 func TestRandW_Next(t *testing.T) {
 	w := NewRandW()
-	w.Add("server1", 5)
+	w.Add("server1", 4)
 	w.Add("server2", 2)
 	w.Add("server3", 3)
+	w.Add("server4", 1)
 
 	results := make(map[string]int)
 
@@ -15,7 +16,7 @@ func TestRandW_Next(t *testing.T) {
 		results[s]++
 	}
 
-	if !checkResults(results["server1"], 20, 70) || !checkResults(results["server2"], 0, 40) || !checkResults(results["server3"], 10, 50) {
+	if !checkResults(results["server1"], 20, 70) || !checkResults(results["server2"], 1, 40) || !checkResults(results["server3"], 10, 50) || !checkResults(results["server4"], 1, 30) {
 		t.Error("the algorithm is wrong", results)
 	}
 
@@ -27,7 +28,7 @@ func TestRandW_Next(t *testing.T) {
 		results[s]++
 	}
 
-	if !checkResults(results["server1"], 20, 70) || !checkResults(results["server2"], 0, 40) || !checkResults(results["server3"], 10, 50) {
+	if !checkResults(results["server1"], 20, 70) || !checkResults(results["server2"], 1, 40) || !checkResults(results["server3"], 10, 50) || !checkResults(results["server4"], 1, 30) {
 		t.Error("the algorithm is wrong", results)
 	}
 
