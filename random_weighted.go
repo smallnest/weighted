@@ -30,6 +30,9 @@ func (rw *RandW) Next() (item interface{}) {
 	if rw.n == 0 {
 		return nil
 	}
+	if rw.sumOfWeights <= 0 {
+		return nil
+	}
 	randomWeight := rw.r.Intn(rw.sumOfWeights) + 1
 	for _, item := range rw.items {
 		randomWeight = randomWeight - item.Weight

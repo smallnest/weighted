@@ -54,3 +54,10 @@ func TestRandW_Next(t *testing.T) {
 func checkResults(v, min, max int) bool {
 	return v >= min && v <= max
 }
+
+func TestRandWZero(t *testing.T)  {
+	w := NewRandW()
+	w.Add("a", 0)
+	// test panic or not
+	_ = w.Next()
+}
