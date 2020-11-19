@@ -46,4 +46,19 @@ func TestRRW_Next(t *testing.T) {
 	if results["server1"] != 7000 || results["server2"] != 9000 || results["server3"] != 13000 {
 		t.Error("the algorithm is wrong", results)
 	}
+
+	w.RemoveAll()
+	w.Add("server1", 0)
+	w.Add("server2", 0)
+
+	results = make(map[string]int)
+
+	for i := 0; i < 20000; i++ {
+		s := w.Next().(string)
+		results[s]++
+	}
+
+	if results["server1"] != 10000 || results["server2"] != 10000 {
+		t.Error("the algorithm is wrong", results)
+	}
 }
