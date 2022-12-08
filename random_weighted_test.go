@@ -1,9 +1,12 @@
-package weighted
+package weighted_test
 
-import "testing"
+import (
+	"testing"
+	"github.com/smallnest/weighted"
+)
 
 func TestRandW_Next(t *testing.T) {
-	w := NewRandW()
+	w := weighted.NewRandW()
 	w.Add("server1", 4)
 	w.Add("server2", 2)
 	w.Add("server3", 3)
@@ -44,9 +47,9 @@ func TestRandW_Next(t *testing.T) {
 		results[s]++
 	}
 
-	// if !checkResults(results["server1"], 6000, 8000) || !checkResults(results["server2"], 8000, 10000) || !checkResults(results["server3"], 12000, 14000) {
-	// 	t.Error("the algorithm is wrong", results)
-	// }
+	if !checkResults(results["server1"], 6000, 8000) || !checkResults(results["server2"], 8000, 10000) || !checkResults(results["server3"], 12000, 14000) {
+		t.Error("the algorithm is wrong", results)
+	}
 
 	t.Log("the results: ", results)
 }
@@ -56,7 +59,7 @@ func checkResults(v, min, max int) bool {
 }
 
 func TestRandWZero(t *testing.T)  {
-	w := NewRandW()
+	w := weighted.NewRandW()
 	w.Add("a", 0)
 	// test panic or not
 	_ = w.Next()

@@ -64,6 +64,8 @@ func (rw *RandW) All() map[interface{}]int {
 // RemoveAll removes all weighted items.
 func (rw *RandW) RemoveAll() {
 	rw.items = make([]*randWeighted, 0)
+	rw.n = 0
+	rw.sumOfWeights = 0
 	rw.r = rand.New(rand.NewSource(uint64(time.Now().UnixNano())))
 }
 
